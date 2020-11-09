@@ -54,7 +54,7 @@ public class MyVRPlayerController : MonoBehaviourPun
         if (photonView.IsMine)
         {
             // Recenter.
-            if (OVRInput.GetDown(OVRInput.RawButton.LThumbstick) || OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
+            if (OVRInput.GetDown(OVRInput.RawButton.LThumbstick) || Input.GetButtonDown("Oculus_CrossPlatform_SecondaryThumbstick") || Input.GetButtonDown("Oculus_CrossPlatform_PrimaryThumbstick"))
             {
                 InputTracking.Recenter();
             }
