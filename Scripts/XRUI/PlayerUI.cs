@@ -30,8 +30,12 @@ public class PlayerUI : MonoBehaviourPunCallbacks
     public Text Name;
     public Text Version;
 
+    private DisplayImages displayImages;
+
     private void Awake()
     {
+        displayImages = GameObject.Find("SharingWhiteBoard").GetComponent<DisplayImages>();
+
         PlayerUIPanel.SetActive(false);
         if (photonView.IsMine)
         {
@@ -203,11 +207,11 @@ public class PlayerUI : MonoBehaviourPunCallbacks
             }
             else if (btn.name == "Next_btn")
             {
-                //
+                displayImages.DisplayImageOnClick();
             }
             else if (btn.name == "Before_btn")
             {
-                //
+                displayImages.BackImageOnClick();
             }
         }
     }

@@ -92,10 +92,10 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("Launcher: OnJoinedRoom()");
-        //PhotonNetwork.LoadLevel("Room");
+        PhotonNetwork.LoadLevel("Room");
 
         //SceneManager.sceneLoaded += OnLoadedScene;
-        SceneManager.LoadScene("Room");
+        //SceneManager.LoadScene("Room");
     }
     #endregion
 

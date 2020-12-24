@@ -17,6 +17,8 @@ public class MyVRPlayerController : MonoBehaviourPun
     public float h = 1f;
     public float v = 2f;
 
+    public float rotateSpeed = 1.0f;
+
     private Animator anim;
     public float animSpeed = 2f;
 
@@ -54,7 +56,7 @@ public class MyVRPlayerController : MonoBehaviourPun
         if (photonView.IsMine)
         {
             // Recenter.
-            if (OVRInput.GetDown(OVRInput.RawButton.LThumbstick) || Input.GetButtonDown("Oculus_CrossPlatform_SecondaryThumbstick") || Input.GetButtonDown("Oculus_CrossPlatform_PrimaryThumbstick"))
+            if (OVRInput.GetDown(OVRInput.RawButton.LThumbstick) || OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
             {
                 InputTracking.Recenter();
             }
@@ -109,6 +111,22 @@ public class MyVRPlayerController : MonoBehaviourPun
             transform.position += dir1 * Speed * Time.deltaTime * Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickVertical");
         }
 
+        // 右手ジョイスティックの入力 カメラの移動
+        if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") > 0.5f)
+        {
+            //Debug.Log("Horizontal:" + Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal"));
+            transform.Rotate(0.0f, rotateSpeed, 0.0f);
+            flagRotate = true;
+        }
+        // 右手ジョイスティックの入力 カメラの移動
+        if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") < -0.5f)
+        {
+            //Debug.Log("Horizontal:" + Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal"));
+            transform.Rotate(0.0f, -rotateSpeed, 0.0f);
+            flagRotate = true;
+        }
+
+        /*
         // Rotate 右手のジョイスティックの入力　回転
         if (flagRotate) // 入力がなくなれば再び回転できる状態にする
         {
@@ -123,17 +141,18 @@ public class MyVRPlayerController : MonoBehaviourPun
             if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") > 0.5f)
             {
                 //Debug.Log("Horizontal:" + Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal"));
-                transform.Rotate(0.0f, 30.0f, 0.0f);
+                transform.Rotate(0.0f, rotateSpeed, 0.0f);
                 flagRotate = true;
             }
             // 右手ジョイスティックの入力 カメラの移動
             if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") < -0.5f)
             {
                 //Debug.Log("Horizontal:" + Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal"));
-                transform.Rotate(0.0f, -30.0f, 0.0f);
+                transform.Rotate(0.0f, -rotateSpeed, 0.0f);
                 flagRotate = true;
             }
         }
+        */
         this.h = Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickHorizontal") * 10;
         this.v = Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickVertical") * 10;
         anim.SetFloat("Speed", this.v);

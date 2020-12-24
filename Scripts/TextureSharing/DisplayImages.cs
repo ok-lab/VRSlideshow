@@ -42,7 +42,7 @@ public class DisplayImages : MonoBehaviour
         return count;
     }
 
-    void DisplayImageOnClick()
+    public void DisplayImageOnClick()
     {
         /*
          * 1. pngファイルのpathを指定
@@ -51,6 +51,20 @@ public class DisplayImages : MonoBehaviour
          */
         count++;
         if (count == max) count = 1;
+        string path = GetFilePath(count);
+        Texture2D texture2D = PngToTex2D(path);
+        AttachedTexture2D(texture2D);
+    }
+
+    public void BackImageOnClick()
+    {
+        /*
+         * 1. pngファイルのpathを指定
+         * 2. それをTexture2Dに変える
+         * 3. 貼り付ける
+         */
+        count--;
+        if (count == 0) count = max-1;
         string path = GetFilePath(count);
         Texture2D texture2D = PngToTex2D(path);
         AttachedTexture2D(texture2D);

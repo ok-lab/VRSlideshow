@@ -84,7 +84,7 @@ public class FingerSync : MonoBehaviour, IPunObservable
 
     #endregion
 
-    public bool ChangeDirection = false;
+    //public bool ChangeDirection = false;
 
     void Awake()
     {
@@ -231,6 +231,68 @@ public class FingerSync : MonoBehaviour, IPunObservable
         axis = new Vector3(0, 1, 0);
         isThumb = false;
 
+        switch (fingerType)
+        {
+            case FingerType.L_Thumb:
+                touchButtonPool.Add(OVRInput.RawTouch.LThumbstick);
+                touchButtonPool.Add(OVRInput.RawTouch.LThumbRest);
+                touchButtonPool.Add(OVRInput.RawTouch.X);
+                touchButtonPool.Add(OVRInput.RawTouch.Y);
+                trigger = OVRInput.RawAxis1D.LHandTrigger;
+                axis = new Vector3(-0.1f, 0.8f, -0.4f);
+                isThumb = true;
+                break;
+            case FingerType.L_Index:
+                trigger = OVRInput.RawAxis1D.LIndexTrigger;
+                triggerStart = 0.5f;
+                relatedTouchButton = OVRInput.RawTouch.LIndexTrigger;
+                axis = new Vector3(0.1f, 1, 0);
+                break;
+            case FingerType.L_Middle:
+                trigger = OVRInput.RawAxis1D.LHandTrigger;
+                relatedTouchButton = OVRInput.RawTouch.LIndexTrigger;
+                triggerStart = 0.95f;
+                break;
+            case FingerType.L_Ring:
+                trigger = OVRInput.RawAxis1D.LHandTrigger;
+                triggerStart = 0.1f;
+                break;
+            case FingerType.L_Pinky:
+                trigger = OVRInput.RawAxis1D.LHandTrigger;
+                axis = new Vector3(0, 1, -0.1f);
+                break;
+
+            case FingerType.R_Thumb:
+                touchButtonPool.Add(OVRInput.RawTouch.RThumbstick);
+                touchButtonPool.Add(OVRInput.RawTouch.RThumbRest);
+                touchButtonPool.Add(OVRInput.RawTouch.A);
+                touchButtonPool.Add(OVRInput.RawTouch.B);
+                trigger = OVRInput.RawAxis1D.RHandTrigger;
+                axis = new Vector3(0.1f, 0.5f, 0.4f);
+                isThumb = true;
+                break;
+            case FingerType.R_Index:
+                trigger = OVRInput.RawAxis1D.RIndexTrigger;
+                triggerStart = 0.1f;
+                relatedTouchButton = OVRInput.RawTouch.RIndexTrigger;
+                axis = new Vector3(-0.1f, 1, 0);
+                break;
+            case FingerType.R_Middle:
+                trigger = OVRInput.RawAxis1D.RHandTrigger;
+                relatedTouchButton = OVRInput.RawTouch.RIndexTrigger;
+                triggerStart = 0.95f;
+                break;
+            case FingerType.R_Ring:
+                trigger = OVRInput.RawAxis1D.RHandTrigger;
+                triggerStart = 0.1f;
+                break;
+            case FingerType.R_Pinky:
+                trigger = OVRInput.RawAxis1D.RHandTrigger;
+                axis = new Vector3(0, 1, 0.1f);
+                break;
+        }
+
+        /*
         if (!ChangeDirection)
         {   // Default
             switch (fingerType)
@@ -361,6 +423,7 @@ public class FingerSync : MonoBehaviour, IPunObservable
                     break;
             }
         }
+        */
 
         if (jointLevelPool.Count >= 3)
         {
